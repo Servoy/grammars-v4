@@ -123,5 +123,12 @@ public abstract class JavaScriptParserBase extends Parser
         // Check if the token is, or contains a line terminator.
         return (type == JavaScriptParser.MultiLineComment && (text.contains("\r") || text.contains("\n"))) ||
                 (type == JavaScriptParser.LineTerminator);
+    }   
+    
+    protected boolean notFunctionDeclaration() {
+    	int ruleIndex = getInvokingContext(getContext().getRuleIndex()).getRuleIndex();
+//    	System.out.println("is function declaration (ie. parent is statement): "+ (ruleIndex == JavaScriptParser.RULE_statement));
+//    	System.out.println("is function expression: "+ (ruleIndex == JavaScriptParser.RULE_anonymousFunction));
+		return ruleIndex != JavaScriptParser.RULE_statement;
     }
 }
